@@ -1,0 +1,22 @@
+{
+  "name": "frag",
+  "version": "0.1.0",
+  "description": "A simple webserver for serving pages and saving data",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theproductiveprogrammer/frag.git"
+  },
+  "author": "charles.lobo@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "serve-static": "^1.13.2",
+    "shortid": "^2.2.14"
+  }
+}
