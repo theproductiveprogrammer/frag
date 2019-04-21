@@ -15,6 +15,14 @@ data.
 
 ## Use
 
+First add the package to your repository using your favorite package
+manager:
+
+        $> yarn add @tpp/frag
+
+
+Then require it and use it in your code.
+
 ```
 const frag = require('frag')
 
@@ -22,7 +30,10 @@ const frag = require('frag')
  * taking the fragments from src/
  * and generate the HTML sites in public/
  *
-frag.start(3003, 'src', 'public')
+frag.start(3003, 'src', 'public', data, (err) => {
+    if(err) console.error(err)
+    else console.log(`Site started on ${port}`))
+})
 ```
 
 And example layout would look like:

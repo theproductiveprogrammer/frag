@@ -16,7 +16,7 @@ const path = require('path')
 const fs = require('fs')
 
 
-module.exports.start = function(port, src, site) {
+module.exports.start = function(port, src, site, data, cb) {
 
 const app = express()
 const bodyParser = require('body-parser')
@@ -65,8 +65,13 @@ app.use('/save', (req, res) => {
 })
 app.use('/', serveStatic(path.join(__dirname, site)))
 
-app.listen(port, () => console.log(`Site started on ${port}`))
-
+/*      understand/
+ * Here's where we exit - create the data folder and start the server
+ */
+fs.mkdir(data, { recursive: true }, (err) => {
+    if(err) cb(err)
+    else app.listen(port, cb)
+})
 
 function save(data) {
     let fname = getFName()
@@ -78,7 +83,7 @@ function save(data) {
 function getFName() {
     let now = new Date()
     let n = now.toISOString().substring(0,10)
-    return n + '.log'
+    return path.join(data, `${n}.loginfo`)
 }
 
 }
