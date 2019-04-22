@@ -98,9 +98,44 @@ Most sites have a framework/template surrounding the content:
 actual pages it can serve.
 
 Both the framework/tempate and the content are simple HTML files in a
-folder. The framework/template is expected to be a special file called
-`_layout.html` that must contain a single line with the word `!CONTENT`
-and it is here that all the content files are inserted.
+folder. The content files can start with some properties and the rest of
+the file is referenced as `CONTENT`.
+
+```
+TITLE = Easter Offer
+DESCRIPTION = 50% off on the best eBook this side of heaven
+
+<div class=container>
+    <div ...
+</div>
+```
+
+The framework/template is a special file called
+`_layout.html` that contains `$$CONTENT$$` and other `$$PROPERTIES$$`
+that will be replaced by the property values in the content html files.
+
+```
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>$$TITLE$$</title>
+    <meta name="description" content="$$DESCRIPTION$$">
+    ...
+</head>
+<body>
+
+    $$CONTENT$$
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+</body>
+</html>
+```
+
+**NOTE: The properties are replaced LITERALLY without any HTML escaping.
+This means you should make sure that the property values do not break
+your HTML**
 
 Different folders can have different `_layout.html` files for different
 parts of your site. Folders without `_layout.html` files are simply

@@ -1,0 +1,36 @@
+TITLE= Testing Frag
+DESCRIPTION = A simple test page for the frag server
+AUTHOR = Charles L
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button id="click" type="button" class="btn btn-primary">Primary</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form action="/save" method="POST">
+                    <input type="text" name="name"></input>
+                    <input type="hidden" name="secret" value="ilikeyou"></input>
+                    <input type="hidden" name="nxt" value="done/index.html"></input>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+function installHandlers() {
+    let b = document.getElementById('click')
+    b.addEventListener("click", (e) => {
+        e.preventDefault()
+        save({ some: "data", nxt: "done/index.html" }, (err, xhr) => {
+            if(err) console.error(err)
+            else console.log(xhr)
+        })
+    })
+}
+installHandlers()
+    </script>
+

@@ -15,6 +15,8 @@ const serveStatic = require('serve-static')
 const path = require('path')
 const fs = require('fs')
 
+const sitegen = require('./site-generate')
+
 
 module.exports.start = function(port, src, site, data, cb) {
 
@@ -66,11 +68,17 @@ app.use('/save', (req, res) => {
 app.use('/', serveStatic(path.join(__dirname, site)))
 
 /*      understand/
- * Here's where we exit - create the data folder and start the server
+ * Here's where we start - create the data folder,
+ * launch the generator, and start the server
  */
 fs.mkdir(data, { recursive: true }, (err) => {
     if(err) cb(err)
-    else app.listen(port, cb)
+    else {
+        sitegen.gen(src, site, (err) => {
+            if(err) console.error(err)
+        })
+        app.listen(port, cb)
+    }
 })
 
 function save(data) {
