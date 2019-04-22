@@ -17,8 +17,16 @@ const fs = require('fs')
 
 const sitegen = require('./site-generate')
 
+let state = { kore: null }
 
+module.exports.kore = () => { return state.kore }
 module.exports.start = function(port, src, site, data, cb) {
+
+const koredb = require('koredb')
+state.kore = koredb.node({
+    //TODO: add whoami
+    saveTo: data
+})
 
 const app = express()
 const bodyParser = require('body-parser')
@@ -60,10 +68,9 @@ app.use('/save', (req, res) => {
     let nxt = data.nxt
     delete data.nxt
     let s = { trid: req.trid, data: data }
-    console.log(s)
     if(nxt) res.redirect(nxt)
     else res.end()
-    save(s)
+    state.kore.addRec('data', s)
 })
 app.use('/', serveStatic(path.join(__dirname, site)))
 

@@ -144,9 +144,11 @@ served without any processing.
 
 ## User Input and Redirects
 
-`Frag` saves user input in an append-only log file similar to
-[Kore](https://www.npmjs.com/package/koredb). Processing of these files
-is left up to the user for now (TODO: Integrate with Kore?)
+`Frag` saves user input using the append-only log database
+[Kore](https://www.npmjs.com/package/koredb). Processing of these
+records can be done by adding Kore processors by accesing the `kore`
+instance using `frag.kore()` and then calling
+[`addProcessor()`](https://github.com/theproductiveprogrammer/koredb/blob/master/docs/START.md)
 
 `Frag` saves any user input to the endpoint `/save`. It can optionally
 take a `nxt` parameter and generate a redirect request so the browser

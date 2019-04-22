@@ -1,6 +1,6 @@
 {
   "name": "@tpp/frag",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A simple webserver for serving pages and saving data",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
+    "koredb": "^0.3.0",
     "serve-static": "^1.13.2",
     "shortid": "^2.2.14"
   }
