@@ -24,15 +24,18 @@ manager:
 Then require it and use it in your code.
 
 ```
-const frag = require('frag')
+'use strict'
+const frag = require('@tpp/frag')
 
-/* start the web server on port 3003
+const PORT=3003
+/* start the web server on port PORT
  * taking the fragments from src/
  * and generate the HTML sites in public/
- *
-frag.start(3003, 'src', 'public', data, (err) => {
+ * Data will be stored in data/
+ */
+frag.start(PORT, 'src', 'public', 'data', (err) => {
     if(err) console.error(err)
-    else console.log(`Site started on ${port}`))
+    else console.log(`Site started on ${PORT}`)
 })
 ```
 
@@ -71,6 +74,8 @@ myproject/
             index.html
             page3.html
             page4.html
+    data/
+        <<data gets saved here>>
 ```
 
 
