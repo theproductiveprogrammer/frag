@@ -72,7 +72,7 @@ app.use('/save', (req, res) => {
     else res.end()
     state.kore.addRec('data', s)
 })
-app.use('/', serveStatic(path.join(__dirname, site)))
+app.use('/', serveStatic(site))
 
 /*      understand/
  * Here's where we start - create the data folder,
