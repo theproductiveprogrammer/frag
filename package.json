@@ -1,6 +1,6 @@
 {
   "name": "@tpp/frag",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A simple webserver for serving pages and saving data",
   "main": "index.js",
   "scripts": {
