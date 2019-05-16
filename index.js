@@ -17,6 +17,8 @@ const fs = require('fs')
 
 const sitegen = require('./site-generate')
 
+const logger = require('./logger')
+
 let state = { kore: null }
 
 module.exports.kore = () => { return state.kore }
@@ -49,9 +51,10 @@ app.use((req, res, next) => {
     if(!trid) {
         trid = shortid.generate()
         res.cookie('trid', trid, { maxAge: 900000 })
-        console.log(`New request detected: trid=${trid}`)
+        logger.log(req, `New request detected: trid=${trid}`)
     }
     req.trid = trid
+    logger.log(req, req.url)
     next()
 })
 
@@ -67,7 +70,12 @@ app.use('/save', (req, res) => {
     }
     let nxt = data.nxt
     delete data.nxt
-    let s = { trid: req.trid, data: data }
+    let s = {
+        trid: req.trid,
+        ip: logger.getIP(req),
+        ref: logger.getRef(req),
+        data: data
+    }
     if(nxt) res.redirect(nxt)
     else res.end()
     state.kore.addRec('data', s)
