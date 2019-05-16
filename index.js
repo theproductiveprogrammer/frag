@@ -54,7 +54,7 @@ app.use((req, res, next) => {
         logger.log(req, `New request detected: trid=${trid}`)
     }
     req.trid = trid
-    logger.log(req, req.url)
+    logger.log(req, `${req.trid}:${req.url}`)
     next()
 })
 
