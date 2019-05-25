@@ -2,6 +2,7 @@
 
 module.exports = {
     log: log,
+    err: err,
     getIP: getIP,
     getRef: getRef,
 }
@@ -11,13 +12,19 @@ let MSGS = []
 function log(req, msg) {
     let dt = (new Date()).toISOString()
     let ip = getIP(req)
-    MSGS.push(`[${dt}] ${ip}:${msg}`)
+    MSGS.push({type: 'log', msg: `[${dt}] ${ip}:${msg}`})
+}
+
+function err(req, msg) {
+    let dt = (new Date()).toISOString()
+    let ip = getIP(req)
+    MSGS.push({type: 'err', msg: `ERR:[${dt}] ${ip}:${msg}`})
 }
 
 function daemon() {
     setInterval(() => {
         let m = MSGS.shift()
-        if(m) console.log(m)
+        if(m) console.log(m.msg)
     }, 500)
 }
 
