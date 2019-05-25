@@ -14,6 +14,7 @@ const shortid = require('shortid')
 const serveStatic = require('serve-static')
 const path = require('path')
 const fs = require('fs')
+const url_ = require('url')
 
 const sitegen = require('./site-generate')
 
@@ -60,7 +61,7 @@ app.use((req, res, next) => {
 
 /*      outcome/
  * Save the given data against the person id. If there is a `nxt`
- * parameter, redirect to that.
+ * parameter, redirect to that (relative to where we came from).
  */
 app.use('/save', (req, res) => {
     let data = req.query
@@ -75,6 +76,15 @@ app.use('/save', (req, res) => {
         ip: logger.getIP(req),
         ref: logger.getRef(req),
         data: data
+    }
+    if(s.ref) {
+        try {
+            nxt = new url_.URL(nxt, s.ref)
+        } catch(e) {
+            logger.err(req, `Failed getting 'nxt' for { nxt: "${nxt}", ref: "${s.ref}" }`)
+        }
+    } else {
+        logger.err(req, `Failed getting 'ref' for ${nxt}`)
     }
     if(nxt) res.redirect(nxt)
     else res.end()
