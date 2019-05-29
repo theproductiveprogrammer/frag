@@ -75,6 +75,7 @@ app.use('/save', (req, res) => {
         trid: req.trid,
         ip: logger.getIP(req),
         ref: logger.getRef(req),
+        headers: req.headers,
         data: data
     }
     if(s.ref) {
