@@ -27,7 +27,6 @@ module.exports.start = function(port, src, site, data, cb) {
 
 const koredb = require('koredb')
 state.kore = koredb.node({
-    //TODO: add whoami
     saveTo: data
 })
 
@@ -56,6 +55,12 @@ app.use((req, res, next) => {
     }
     req.trid = trid
     logger.log(req, `${req.trid}:${req.url}`)
+    state.kore.addRec('reqs', {
+        url: req.url,
+        when: (new Date()).toISOString(),
+        trid: trid,
+        headers: req.headers,
+    })
     next()
 })
 
